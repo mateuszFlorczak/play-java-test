@@ -1,0 +1,16 @@
+
+@import helper._
+@(noteForm: Form[Note], mapDBs: Map[String, String])
+
+@main("Play test app") {
+
+    @form(action = routes.Application.save(), 'id -> "noteForm") {
+        @inputText(noteForm("Name"), '_label -> "Imie:")
+        @inputText(noteForm("Surname"), '_label -> "Nazwisko:")
+        @inputDate(noteForm("Birthday"), '_label -> "Data urodzenia:")
+        @inputText(noteForm("Email"), '_label -> "e-mail:")
+        @select(noteForm("PrefDatabase"), options(mapDBs), '_label -> "Twoja ulubiona baza SQL:")
+        @textarea(noteForm("Notes"), '_label -> "Notatka:")
+        <input type="submit" value="send">
+        }
+}

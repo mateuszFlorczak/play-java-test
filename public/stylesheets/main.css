@@ -1,0 +1,14 @@
+body {
+    background-color: rgba(240, 240, 245, 0.81);
+    margin: auto;
+    width: 800px;
+    text-align: center;
+}
+.content {
+    text-align: center;
+    margin: auto;
+}
+
+.content dl dt{
+    margin: auto;
+}
