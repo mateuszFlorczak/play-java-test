@@ -2,23 +2,16 @@ package models;
 
 import org.hibernate.validator.constraints.Email;
 import play.data.format.Formats;
-import play.data.validation.Constraints;
-import play.data.validation.Constraints.*;
-import play.db.jpa.JPA;
-import play.db.jpa.*;
-import java.lang.Object;
-import play.db.jpa.JPAPlugin.*;
+import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.Pattern;
+import play.data.validation.Constraints.Required;
 
-import javax.annotation.Generated;
-import javax.annotation.RegEx;
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
-import static play.data.format.Formats.DateTime;
 
 @Entity
-public class Note
+public class Note //extends Model
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -43,7 +36,7 @@ public class Note
     private String Email;
     @Required
     @Pattern("[1-9]*")
-    private String PrefDatabase;    //4 elementy do wyboru
+    private String PrefDatabase;
     @Column(length = 5000)
     @MaxLength(5000)
     private String Notes;

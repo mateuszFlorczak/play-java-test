@@ -1,9 +1,34 @@
+
 body {
-    background-color: rgba(240, 240, 245, 0.81);
+    //background-color: @kolorek;
     margin: auto;
-    width: 800px;
-    text-align: center;
+    //max-width: 800px;
+    //text-align: center;
 }
+.info {
+    display: none;
+}
+dd.error {
+    color: #ff0000;
+}
+.noteForm {
+    margin-left: auto;
+    margin-right: auto;
+}
+#note-Form dl dt{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+dl dt {
+    float: left;
+}
+media=screen
+@media (min-width: 1200px)
+.container (@media){
+    wdth: 800px;
+}
+/*
 .content {
     text-align: center;
     margin: auto;
@@ -12,3 +37,4 @@ body {
 .content dl dt{
     margin: auto;
 }
+*/

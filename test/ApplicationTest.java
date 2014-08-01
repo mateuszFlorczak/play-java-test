@@ -1,28 +1,15 @@
-import java.util.*;
-
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap;
 import controllers.routes;
-import models.Note;
-import org.junit.*;
 
-import play.data.Form;
-import play.mvc.*;
 import play.test.*;
-import play.data.DynamicForm;
-import play.data.validation.ValidationError;
-import play.data.validation.Constraints.RequiredValidator;
-import play.i18n.Lang;
-import play.libs.F;
-import play.libs.F.*;
-import play.twirl.api.Content;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static play.data.Form.form;
 import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
 
-
+import org.junit.Before;
+import org.junit.Test;
+import play.mvc.Result;
 /**
 *
 * Simple (JUnit) tests that can call all parts of a play app.
@@ -45,51 +32,60 @@ public class ApplicationTest {
     String InvalidEmail = "qwe";
     String InvalidPrefDB = "0";
 
+    @Before
+    public void setup()
+    {
+        Helpers.start(fakeApplication(inMemoryDatabase()));
+    }
 
     @Test
     public void testNoteCreation_OK()
     {
         ImmutableMap<String, String> map = new ImmutableMap.Builder<String, String>()
-                .put("Name", ValidName)
-                .put("Surname", ValidSurname)
-                .put("Birthday", ValidBirthday)
-                .put("Email", ValidEmail)
-                .put("PrefDatabase", ValidPrefDB)
-                .put("Notes", Notes)
-                .build();
+            .put("Name", ValidName)
+            .put("Surname", ValidSurname)
+            .put("Birthday", ValidBirthday)
+            .put("Email", ValidEmail)
+            .put("PrefDatabase", ValidPrefDB)
+            .put("Notes", Notes)
+            .build();
 
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Result result = callAction(
-                        routes.ref.Application.save(),
-                        fakeRequest()
-                                .withFormUrlEncodedBody(map));
-                assertEquals(200, status(result));
-            }
-        });
+        Result result = callAction(
+            routes.ref.Application.save(),
+            fakeRequest()
+                .withFormUrlEncodedBody(map));
+        assertEquals(200, status(result));
     }
 
     @Test
     public void testNoteCreation_InvalidValues()
     {
         ImmutableMap<String, String> map = new ImmutableMap.Builder<String, String>()
-                .put("Name", ValidName)
-                .put("Surname", ValidSurname)
-                .put("Birthday", ValidBirthday)
-                .put("Email", InvalidEmail)
-                .put("PrefDatabase", ValidPrefDB)
-                .put("Notes", ValidNotes)
-                .build();
+            .put("Name", InvalidName)
+            .put("Surname", ValidSurname)
+            .put("Birthday", ValidBirthday)
+            .put("Email", InvalidEmail)
+            .put("PrefDatabase", ValidPrefDB)
+            .put("Notes", Notes)
+            .build();
 
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Result result = callAction(
-                        routes.ref.Application.save(),
-                        fakeRequest()
-                                .withFormUrlEncodedBody(map));
-                assertEquals(400, status(result));
-            }
-        });
+        Result result = callAction(
+            routes.ref.Application.save(),
+            fakeRequest()
+                .withFormUrlEncodedBody(map));
+        assertEquals(400, status(result));
+    }
+
+    @Test
+    public void badRoute() {
+        Result result = route(fakeRequest(GET, "/bad"));
+        assertThat(result).isNull();
+    }
+
+    @Test
+    public void rootRoute() {
+        Result result = route(fakeRequest(GET, "/"));
+        assertThat(result).isNotNull();
     }
 
     /*@Test

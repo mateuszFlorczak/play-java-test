@@ -12,6 +12,3 @@ GET     /Application                controllers.Application.index()
 GET     /Application/add            controllers.Application.add()
 GET     /Application/save           controllers.Application.save()
 POST    /Application/save           controllers.Application.save()
-
-#GET     /Notes                      controllers.Notes.index()
-#GET     /Notes/add                  controllers.Notes.add()

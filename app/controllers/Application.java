@@ -1,13 +1,14 @@
 package controllers;
 
 import models.Note;
-import play.*;
 import play.data.Form;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
-import play.mvc.*;
-
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.index;
+import views.html.note;
+import views.html.success;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +17,6 @@ import static play.data.Form.form;
 
 public class Application extends Controller {
 
-    //public static Result index() {
-        //return ok(index.render("Your new application is ready."));
-    //}
     public static Note model;
 
     final static Form<Note> noteForm = form(Note.class);
@@ -49,11 +47,9 @@ public class Application extends Controller {
         try {
             if(noteForm.bindFromRequest().hasErrors())
             {
-                return ok(note.render(noteForm.bindFromRequest(), mapDBs));
+                return badRequest(note.render(noteForm.bindFromRequest(), mapDBs));
             }
             notka = form(Note.class).bindFromRequest().get();
-
-            //notka.save();
             JPA.em().persist(notka);
             result = "Note created!";
         }
