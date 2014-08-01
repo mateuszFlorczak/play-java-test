@@ -2,6 +2,8 @@ logs
 project/project
 project/target
 target
+!project/target/web/public/main/lib/bootstrap
+!target/web/public/main/lib/bootstrap
 tmp
 .history
 dist
