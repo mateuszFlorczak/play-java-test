@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.common.collect.ImmutableMap;
 import models.Note;
 import play.data.Form;
 import play.db.jpa.JPA;
@@ -10,7 +11,6 @@ import views.html.index;
 import views.html.note;
 import views.html.success;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static play.data.Form.form;
@@ -21,31 +21,28 @@ public class Application extends Controller {
 
     final static Form<Note> noteForm = form(Note.class);
 
-    public static Map<String, String> mapDBs = new HashMap<String, String>();
+    public static Map<String, String> mapDBs = ImmutableMap.of(
+            "1", "PostgreSQL",
+            "2", "MySql",
+            "3", "Oracle",
+            "4", "MsSql"
+    );
+
     public static Result index()
     {
         return ok(index.render("home page"));
     }
     public static Result add()
     {
-        Map<String, String> mapDBs = new HashMap<String, String>();
-        mapDBs.put("1", "PostgreSQL");
-        mapDBs.put("2", "MySql");
-        mapDBs.put("3", "Oracle");
-        mapDBs.put("4", "MsSql");
-
         return ok(note.render(noteForm, mapDBs));
     }
     @Transactional
-    public static Result save() {
-        Map<String, String> mapDBs = new HashMap<String, String>();
-        mapDBs.put("1", "PostgreSQL");
-        mapDBs.put("2", "MySql");
-        mapDBs.put("3", "Oracle");
-        mapDBs.put("4", "MsSql");
+    public static Result save()
+    {
         Note notka = new Note();
         String result = "";
-        try {
+        try
+        {
             if(noteForm.bindFromRequest().hasErrors())
             {
                 return badRequest(note.render(noteForm.bindFromRequest(), mapDBs));
@@ -62,40 +59,17 @@ public class Application extends Controller {
 
         return ok(success.render(result));
     }
-    public static Result ajax()
-    {
-        return ok("Here's my server-side data");
-    }
-    public static Result get()
+    public static Result validate()
     {
         Form<Note> boundForm = noteForm.bindFromRequest();
-
-        Map<String, String> mapDBs = new HashMap<String, String>();
-        mapDBs.put("1", "PostgreSQL");
-        mapDBs.put("2", "MySql");
-        mapDBs.put("3", "Oracle");
-        mapDBs.put("4", "MsSql");
 
         if(boundForm.hasErrors())
         {
             return badRequest(boundForm.errorsAsJson());
         }
-        else {
-            return ok("dziala");
+        else
+        {
+            return ok();
         }
-        //Note notka = new Note();
-//        Form<Note> note = noteForm.bindFromRequest();
-//        Map parameters = request().body().asFormUrlEncoded();
-//        String message = ((String[])parameters.get("value"))[0];
-//        if(note.hasErrors())
-//        {
-//            return ok(note.toString());
-//        }
-//        //notka = form(Note.class).bindFromRequest().get();
-////        Map str = request().queryString();
-////        String strarr = ((String[])str.get("value"))[0];
-////        strarr = strarr.substring(strarr.indexOf('=') + 1);
-////        return ok(strarr);
-//        return ok(message);
     }
 }

@@ -11,36 +11,19 @@
         @textarea(noteForm("Notes"), 'class -> "form-control",'_label -> "Notatka:")
         <input class="btn"type="submit" value="send">
         }
-        <script>
 
-$(".form-control").blur(function() {
-    $self = $(this);
-    $.ajax({
-        url: "/get",
-        type: "POST",
-        data: $(noteForm).serialize(),
-        beforeSend: function() {
-            $(".form-control").each(function( index ) {
-                $( this ).siblings().remove();
-            });
-        },
-        success: function(data) {
-            // something here
-        },
-        error: function(error) {
-            if(error.responseText != "")
-            {
-                var jsonResponseText = $.parseJSON(error.responseText);
-                $.each(jsonResponseText, function(name, val) {
-                    jsonResponseStatus = $.parseJSON(JSON.stringify(val));
-                     $.each(jsonResponseStatus, function(name2, val2) {
-                         $("#"+name).parent().append('<dd class="error">' + val2 + '</dd>');
-                     });
-                });
-            }
-        }
+    <script>
+
+    $(".form-control").blur(function() {
+        $self = $(this);
+        $.ajax({
+            url: "/validate",
+            type: "POST",
+            data: $(noteForm).serialize(),
+            error: actualizeFormErrors,
+            success: clearFormErrors
+        });
     });
-});
 
-        </script>
+    </script>
 }

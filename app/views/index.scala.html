@@ -2,21 +2,4 @@
 
 @main("home") {
     <h1>@content</h1>
-<script>
-function try2(){
-    $.get('/get',
-        {'foo': 'bar'},
-        function(data) {
-            window.alert(data);
-        });
-    }
-    function try3() {
-        alert("kwa");
-    }
-
-
-</script>
-        <button onclick="try2()">try2</button>
-    <button onclick="try3()">try3</button>
-    <button onclick="myFunction()">Click me</button>
 }

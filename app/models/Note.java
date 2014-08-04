@@ -67,29 +67,38 @@ public class Note //extends Model
     {
         return Surname;
     }
-    public Date getBirthday() {
+    public Date getBirthday()
+    {
         return Birthday;
     }
-    public void setBirthday(Date birthday) {
+    public void setBirthday(Date birthday)
+    {
         Birthday = birthday;
     }
-    public String getEmail() {
+    public String getEmail()
+    {
         return Email;
     }
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         Email = email;
     }
-    public String getNotes() {
+    public String getNotes()
+    {
         return Notes;
     }
-    public void setNotes(String notes) {
+    public void setNotes(String notes)
+    {
         Notes = notes;
     }
     public void setPrefDatabase(String prefDatabase)
     {
         PrefDatabase = prefDatabase;
     }
-    public String getPrefDatabase() { return PrefDatabase; }
+    public String getPrefDatabase()
+    {
+        return PrefDatabase;
+    }
     public String toString()
     {
         return Name + " " + Surname + " " + Birthday;

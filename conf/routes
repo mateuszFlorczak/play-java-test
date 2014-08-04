@@ -11,6 +11,4 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /add            controllers.Application.add()
 POST    /save           controllers.Application.save()
 
-GET     /ajax           controllers.Application.ajax()
-POST    /get            controllers.Application.get()
-GET     /get            controllers.Application.get()
+POST    /validate       controllers.Application.validate()
