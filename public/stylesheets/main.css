@@ -5,6 +5,9 @@ body {
     //max-width: 800px;
     //text-align: center;
 }
+.troll {
+    color: #00ff00;
+}
 .info {
     display: none;
 }

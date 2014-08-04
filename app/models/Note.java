@@ -90,4 +90,8 @@ public class Note //extends Model
         PrefDatabase = prefDatabase;
     }
     public String getPrefDatabase() { return PrefDatabase; }
+    public String toString()
+    {
+        return Name + " " + Surname + " " + Birthday;
+    }
 }

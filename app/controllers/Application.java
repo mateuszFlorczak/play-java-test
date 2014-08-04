@@ -21,6 +21,7 @@ public class Application extends Controller {
 
     final static Form<Note> noteForm = form(Note.class);
 
+    public static Map<String, String> mapDBs = new HashMap<String, String>();
     public static Result index()
     {
         return ok(index.render("home page"));
@@ -60,5 +61,41 @@ public class Application extends Controller {
         }
 
         return ok(success.render(result));
+    }
+    public static Result ajax()
+    {
+        return ok("Here's my server-side data");
+    }
+    public static Result get()
+    {
+        Form<Note> boundForm = noteForm.bindFromRequest();
+
+        Map<String, String> mapDBs = new HashMap<String, String>();
+        mapDBs.put("1", "PostgreSQL");
+        mapDBs.put("2", "MySql");
+        mapDBs.put("3", "Oracle");
+        mapDBs.put("4", "MsSql");
+
+        if(boundForm.hasErrors())
+        {
+            return badRequest(boundForm.errorsAsJson());
+        }
+        else {
+            return ok("dziala");
+        }
+        //Note notka = new Note();
+//        Form<Note> note = noteForm.bindFromRequest();
+//        Map parameters = request().body().asFormUrlEncoded();
+//        String message = ((String[])parameters.get("value"))[0];
+//        if(note.hasErrors())
+//        {
+//            return ok(note.toString());
+//        }
+//        //notka = form(Note.class).bindFromRequest().get();
+////        Map str = request().queryString();
+////        String strarr = ((String[])str.get("value"))[0];
+////        strarr = strarr.substring(strarr.indexOf('=') + 1);
+////        return ok(strarr);
+//        return ok(message);
     }
 }

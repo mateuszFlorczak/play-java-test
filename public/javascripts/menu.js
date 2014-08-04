@@ -11,3 +11,19 @@ function setActiveClass() {
             l[i].parentNode.className = "";
     }
 }
+function myFunction() {
+alert("kwa");
+}
+/*
+function try(){
+    $.ajax(ajaxParameters({
+        url: '/ajax',
+        success: function(data, textStatus, jqXHR) {
+            window.alert(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            window.alert(textStatus);
+        }
+    }));
+    }
+    */
