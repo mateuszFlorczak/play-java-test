@@ -26,19 +26,19 @@ public class ApplicationTest {
 
     NoteDao noteDaoMock = mock(NoteDao.class);
 
-    String ValidName = "Mateusz";
-    String ValidSurname = "Mak";
-    String ValidBirthday = "1999-09-09";
-    String ValidEmail = "qwe@wp.pl";
-    String ValidPrefDB = "1";
-    String Notes = "q";
+    String validName = "Mateusz";
+    String validSurname = "Mak";
+    String validBirthday = "1999-09-09";
+    String validEmail = "qwe@wp.pl";
+    String validPrefDB = "1";
+    String notes = "q";
 
-    String Empty = "";
-    String InvalidName = "qwe123";
-    String InvalidSurname = "qwe123";
-    String InvalidBirthday = "1999-13-13";
-    String InvalidEmail = "qwe";
-    String InvalidPrefDB = "0";
+    String empty = "";
+    String invalidName = "qwe123";
+    String invalidSurname = "qwe123";
+    String invalidBirthday = "1999-13-13";
+    String invalidEmail = "qwe";
+    String invalidPrefDB = "0";
 
     @Before
     public void setup()
@@ -52,12 +52,12 @@ public class ApplicationTest {
     public void testNoteCreation_OK()
     {
         ImmutableMap<String, String> map = new ImmutableMap.Builder<String, String>()
-            .put("Name", ValidName)
-            .put("Surname", ValidSurname)
-            .put("Birthday", ValidBirthday)
-            .put("Email", ValidEmail)
-            .put("PrefDatabase", ValidPrefDB)
-            .put("Notes", Notes)
+            .put("name", validName)
+            .put("surname", validSurname)
+            .put("birthday", validBirthday)
+            .put("email", validEmail)
+            .put("prefDatabase", validPrefDB)
+            .put("notes", notes)
             .build();
 
         Result result = callAction(
@@ -71,12 +71,12 @@ public class ApplicationTest {
     public void testNoteCreation_InvalidValues()
     {
         ImmutableMap<String, String> map = new ImmutableMap.Builder<String, String>()
-            .put("Name", InvalidName)
-            .put("Surname", ValidSurname)
-            .put("Birthday", ValidBirthday)
-            .put("Email", InvalidEmail)
-            .put("PrefDatabase", ValidPrefDB)
-            .put("Notes", Notes)
+            .put("name", invalidName)
+            .put("surname", validSurname)
+            .put("birthday", validBirthday)
+            .put("email", invalidEmail)
+            .put("prefDatabase", validPrefDB)
+            .put("notes", notes)
             .build();
 
         Result result = callAction(

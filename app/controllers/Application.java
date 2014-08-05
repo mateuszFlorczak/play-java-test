@@ -56,7 +56,6 @@ public class Application extends Controller {
                 return badRequest(note.render(noteForm.bindFromRequest(), mapDBs));
             }
             notka = form(Note.class).bindFromRequest().get();
-            //JPA.em().persist(notka);
             getNoteDao().persist(notka);
             result = "Note created!";
         }

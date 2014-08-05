@@ -9,7 +9,7 @@ function actualizeFormErrors(error)
             jsonResponseStatus = $.parseJSON(JSON.stringify(val));
              $.each(jsonResponseStatus, function(name2, val2)
              {
-                 $("#"+name).parent().append('<dd class="error">' + val2 + '</dd>');
+                 $("#"+name).parent().parent().append('<dd class="error">' + name + " " + val2 + '</dd>');
              });
         });
     }
@@ -18,6 +18,6 @@ function clearFormErrors()
 {
     $(".form-control").each(function( index )
     {
-        $(this).siblings().remove();
+        $(this).parent().siblings().filter(".error").remove();
     });
 }

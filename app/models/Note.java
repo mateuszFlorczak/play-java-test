@@ -15,92 +15,88 @@ public class Note //extends Model
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private int Id;
+    private int id;
     @Required
     @Column(length = 100)
     @MaxLength(100)
     @Pattern("[A-Za-z ]*")
-    private String Name;
+    private String name;
     @Required
     @Column(length = 100)
     @MaxLength(100)
     @Pattern("[A-Za-z ]*")
-    private String Surname;
+    private String surname;
     @Required
     @Formats.DateTime(pattern="yyyy-MM-dd")
-    private Date Birthday;
+    private Date birthday;
     @Required
     @Column(length = 200)
     @MaxLength(200)
     @Email
-    private String Email;
+    private String email;
     @Required
     @Pattern("[1-9]*")
-    private String PrefDatabase;
+    private String prefDatabase;
     @Column(length = 5000)
     @MaxLength(5000)
-    private String Notes;
+    private String notes;
 
     public Note() {}
 
-    public int getId()
+    public int getid()
     {
-        return Id;
+        return id;
     }
-    protected void setId(int id)
+    protected void setid(int id)
     {
-        Id = id;
+        this.id = id;
     }
-    public void setName(String name)
+    public void setname(String name)
     {
-        Name = name;
+        this.name = name;
     }
-    public String getName()
+    public String getname()
     {
-        return Name;
+        return this.name;
     }
-    public void setSurname(String surname)
+    public void setsurname(String surname)
     {
-        Surname = surname;
+        this.surname = surname;
     }
-    public String getSurname()
+    public String getsurname()
     {
-        return Surname;
+        return this.surname;
     }
-    public Date getBirthday()
+    public Date getbirthday()
     {
-        return Birthday;
+        return this.birthday;
     }
-    public void setBirthday(Date birthday)
+    public void setbirthday(Date birthday)
     {
-        Birthday = birthday;
+        this.birthday = birthday;
     }
-    public String getEmail()
+    public String getemail()
     {
-        return Email;
+        return this.email;
     }
-    public void setEmail(String email)
+    public void setemail(String email)
     {
-        Email = email;
+        this.email = email;
     }
-    public String getNotes()
+    public String getnotes()
     {
-        return Notes;
+        return this.notes;
     }
-    public void setNotes(String notes)
+    public void setnotes(String notes)
     {
-        Notes = notes;
+        this.notes = notes;
     }
-    public void setPrefDatabase(String prefDatabase)
+    public void setprefDatabase(String prefDatabase)
     {
-        PrefDatabase = prefDatabase;
+        this.prefDatabase = prefDatabase;
     }
-    public String getPrefDatabase()
+    public String getprefDatabase()
     {
-        return PrefDatabase;
-    }
-    public String toString()
-    {
-        return Name + " " + Surname + " " + Birthday;
+        return this.prefDatabase;
     }
 }
