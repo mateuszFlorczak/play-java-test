@@ -1,6 +1,9 @@
 import com.google.common.collect.ImmutableMap;
 import controllers.routes;
-
+import controllers.Application;
+import models.Note;
+import models.dao.NoteDao;
+import play.data.format.Formats;
 import play.test.*;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -10,13 +13,18 @@ import static play.test.Helpers.*;
 import org.junit.Before;
 import org.junit.Test;
 import play.mvc.Result;
-/**
-*
-* Simple (JUnit) tests that can call all parts of a play app.
-* If you are interested in mocking a whole application, see the wiki for more details.
-*
-*/
+
+import java.util.Date;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static play.test.Helpers.fakeApplication;
+
 public class ApplicationTest {
+
+    NoteDao noteDaoMock = mock(NoteDao.class);
 
     String ValidName = "Mateusz";
     String ValidSurname = "Mak";
@@ -35,7 +43,9 @@ public class ApplicationTest {
     @Before
     public void setup()
     {
-        Helpers.start(fakeApplication(inMemoryDatabase()));
+        doNothing().when(noteDaoMock).persist(any());
+        Application.setNoteDao(noteDaoMock);
+        start(fakeApplication(inMemoryDatabase()));
     }
 
     @Test
@@ -87,65 +97,4 @@ public class ApplicationTest {
         Result result = route(fakeRequest(GET, "/"));
         assertThat(result).isNotNull();
     }
-
-    /*@Test
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertThat(a).isEqualTo(2);
-    }
-
-    @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Your new application is ready.");
-    }
-    // controller
-    @Test
-    public void callIndex() {
-        Result result = controllers.Application.index();
-        assertThat(status(result)).isEqualTo(OK);
-        assertThat(contentType(result)).isEqualTo("text/html");
-        assertThat(charset(result)).isEqualTo("utf-8");
-        assertThat(contentAsString(result)).contains("<a href=\"/Application/add\">add</a>");
-    }
-    @Test
-    public void badRoute() {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Result result = route(fakeRequest(GET, "/bad"));
-                assertThat(result).isNull();
-            }
-        });
-    }
-    @Test
-    public void rootRoute() {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Result result = route(fakeRequest(GET, "/"));
-                assertThat(result).isNotNull();
-            }
-        });
-    }
-    public void renderTemplate() {    public void renderTemplate() {
-
-        final Form<Note> notForm = form(Note.class);
-
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                Content html = views.html.index.render(notForm);
-                assertThat(contentType(html)).isEqualTo("text/html");
-                assertThat(contentAsString(html)).contains("Name:");
-                assertThat(contentAsString(html)).contains("Surname:");
-                assertThat(contentAsString(html)).contains("Email:");
-                assertThat(contentAsString(html)).contains("Year of birth:");
-                assertThat(contentAsString(html)).contains("Your favourite database:");
-                assertThat(contentAsString(html)).contains("Notes:");
-                assertThat(contentAsString(html)).contains("<input type=\"text\" id=\"surname\" name=\"surname\" value=\"\" />");
-            }
-        });
-
-    }
-        11:27
-*/
-    }
+}

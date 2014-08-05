@@ -2,8 +2,8 @@ package controllers;
 
 import com.google.common.collect.ImmutableMap;
 import models.Note;
+import models.dao.NoteDao;
 import play.data.Form;
-import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -18,15 +18,23 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static Note model;
-
     final static Form<Note> noteForm = form(Note.class);
-
     public static Map<String, String> mapDBs = ImmutableMap.of(
             "1", "PostgreSQL",
             "2", "MySql",
             "3", "Oracle",
             "4", "MsSql"
     );
+    private static NoteDao noteDao;
+
+    private static NoteDao getNoteDao()
+    {
+        return noteDao == null ? new NoteDao(): noteDao;
+    }
+    public static void setNoteDao(NoteDao noteDao)
+    {
+        Application.noteDao = noteDao;
+    }
 
     public static Result index()
     {
@@ -48,7 +56,8 @@ public class Application extends Controller {
                 return badRequest(note.render(noteForm.bindFromRequest(), mapDBs));
             }
             notka = form(Note.class).bindFromRequest().get();
-            JPA.em().persist(notka);
+            //JPA.em().persist(notka);
+            getNoteDao().persist(notka);
             result = "Note created!";
         }
         catch(Exception e)
